@@ -1,0 +1,73 @@
+# ============================================================
+# economy.yml — Configuración del sistema económico
+# RoleplayCore por SoyJuanPiece
+# ============================================================
+
+# ── Saldos iniciales ─────────────────────────────────────────
+saldo-inicial: 500.0          # Dinero en banco al registrarse
+cash-inicial: 100.0           # Efectivo inicial en el bolsillo
+
+# ── Payday (ciclo de pago de salarios) ───────────────────────
+payday:
+  intervalo-minutos: 30       # Cada cuántos minutos real se paga el salario
+  salario-desempleado: 150.0  # Subsidio de desempleo por Payday
+  sonido-payday: "ENTITY_EXPERIENCE_ORB_PICKUP"  # Sonido al recibir pago
+  titulo-payday: true         # Mostrar título animado al recibir Payday
+
+# ── Sistema de impuestos progresivos ─────────────────────────
+impuestos:
+  # Tramos: saldo bancario → porcentaje de impuesto
+  tramos:
+    - hasta: 10000
+      porcentaje: 5           # 5% si tienes menos de $10,000
+    - hasta: 20000
+      porcentaje: 8           # 8% entre $10k y $20k
+    - hasta: 40000
+      porcentaje: 12
+    - hasta: 60000
+      porcentaje: 18
+    - hasta: 100000
+      porcentaje: 25
+    - hasta: 999999999        # Sin límite superior
+      porcentaje: 35          # Máximo 35%
+  porcentaje-minimo-neto: 60  # El jugador siempre recibe al menos el 60% de su salario
+
+# ── Transferencias bancarias ──────────────────────────────────
+transferencias:
+  comision-porcentaje: 0.0    # 0% = gratuitas; ponlo en 1 para cobrar 1%
+  limite-diario: 500000.0     # Límite máximo transferible en 24h (0 = sin límite)
+  minimo: 1.0                 # Transferencia mínima permitida
+
+# ── Efectivo (cash) ───────────────────────────────────────────
+cash:
+  limite-bolsillo: 10000.0    # Máximo de efectivo que se puede cargar
+  se-pierde-al-morir: true    # ¿El efectivo cae al suelo al morir?
+  porcentaje-que-cae: 50      # Si se pierde, ¿qué % cae? (50 = la mitad)
+
+# ── Dinero sucio (producto de crímenes) ──────────────────────
+dinero-sucio:
+  comision-lavado: 25         # % que cobra el banco al lavar dinero sucio
+  limite-lavado-por-vez: 50000.0  # Máximo a lavar por operación
+  tiempo-entre-lavados-segundos: 300  # Cooldown entre lavados
+
+# ── ATM ───────────────────────────────────────────────────────
+atm:
+  limite-retiro-diario: 5000.0  # Cuánto puede retirar un jugador por día
+  comision-retiro: 0.0          # Comisión por retirar (0 = gratis)
+
+# ── Préstamos bancarios ──────────────────────────────────────
+prestamos:
+  habilitados: true
+  tasa-interes-base: 5        # % de interés por ciclo de cuotas
+  cuotas-minimas: 3
+  cuotas-maximas: 24
+  monto-minimo: 500.0
+  monto-maximo: 100000.0
+  penalizacion-mora: 500.0    # Multa diaria por estar en mora
+  requisito-historial: false  # ¿Requiere historial crediticio limpio?
+
+# ── Fondo estatal ────────────────────────────────────────────
+fondo-estatal:
+  subsidios-habilitados: true
+  monto-subsidio-nuevo-jugador: 200.0
+  porcentaje-impuestos-al-fondo: 100  # Del total de impuestos, cuánto va al Estado

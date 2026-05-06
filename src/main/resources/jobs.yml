@@ -1,0 +1,169 @@
+# ============================================================
+# jobs.yml — Configuración del sistema de trabajos
+# RoleplayCore por SoyJuanPiece
+# ============================================================
+
+# ── Configuración global ──────────────────────────────────────
+general:
+  costo-cambio-trabajo: 200.0       # Cobro al cambiar de empleo
+  cooldown-cambio-minutos: 60       # Tiempo mínimo entre cambios de trabajo
+  bonus-productividad-habilitado: true  # ¿Se otorga bonus por jornada activa?
+  notificar-salario-payday: true    # Mensaje al jugador en Payday
+
+# ── Definición de trabajos ────────────────────────────────────
+# Puedes añadir trabajos nuevos o modificar los existentes.
+# Los campos 'id' deben coincidir con el enum JobType de Java.
+trabajos:
+
+  POLICIA:
+    nombre: "Policía"
+    salario: 1200.0
+    plazas: 20                # 0 = ilimitado
+    descripcion: "Mantiene el orden público. Puede arrestar, multar e investigar."
+    uniforme: LEATHER_CHESTPLATE   # Material del item de uniforme (opcional)
+    bonus-arresto: 100.0           # Bonus por cada arresto exitoso
+    bonus-multa: 25.0              # Bonus por emitir una multa
+
+  MEDICO:
+    nombre: "Médico"
+    salario: 1500.0
+    plazas: 10
+    descripcion: "Cura a jugadores heridos, opera en el hospital."
+    bonus-curacion: 50.0           # Bonus por curar a un jugador
+    bonus-revivir: 200.0           # Bonus por resucitar un jugador
+
+  BOMBERO:
+    nombre: "Bombero"
+    salario: 1100.0
+    plazas: 10
+    descripcion: "Responde emergencias, apaga incendios."
+    bonus-emergencia: 75.0
+
+  JUEZ:
+    nombre: "Juez"
+    salario: 2500.0
+    plazas: 3
+    descripcion: "Dicta sentencias en el tribunal. Máxima autoridad judicial."
+    requiere-licencia: ABOGACIA    # Requiere tener la licencia de abogacía
+    bonus-sentencia: 150.0
+
+  ABOGADO:
+    nombre: "Abogado"
+    salario: 2000.0
+    plazas: 8
+    descripcion: "Defiende o acusa en el tribunal."
+    requiere-licencia: ABOGACIA
+    bonus-caso-ganado: 500.0
+    bonus-caso-perdido: 100.0
+
+  BANQUERO:
+    nombre: "Banquero"
+    salario: 1800.0
+    plazas: 6
+    descripcion: "Gestiona cuentas, aprueba préstamos, audita transacciones."
+    bonus-prestamo-aprobado: 200.0
+
+  MECANICO:
+    nombre: "Mecánico"
+    salario: 900.0
+    plazas: 12
+    descripcion: "Repara vehículos y vende repuestos."
+    bonus-reparacion: 30.0
+
+  TAXISTA:
+    nombre: "Taxista"
+    salario: 700.0
+    plazas: 15
+    descripcion: "Transporta pasajeros por la ciudad."
+    tarifa-base: 50.0              # Cobro base por carrera
+
+  PERIODISTA:
+    nombre: "Periodista"
+    salario: 700.0
+    plazas: 10
+    descripcion: "Escribe artículos, reporta noticias al servidor."
+    bonus-articulo: 100.0
+
+  AGRICULTOR:
+    nombre: "Agricultor"
+    salario: 600.0
+    plazas: 0
+    descripcion: "Cultiva y vende productos agrícolas."
+    bonus-cosecha: 10.0
+
+  EMPRESARIO:
+    nombre: "Empresario"
+    salario: 2000.0
+    plazas: 0
+    descripcion: "Dirige su propia empresa registrada."
+    requiere-licencia: COMERCIO
+
+  GUARDIA_SEGURIDAD:
+    nombre: "Guardia de Seguridad"
+    salario: 800.0
+    plazas: 20
+    descripcion: "Protege negocios y propiedades privadas."
+    bonus-intruso-detenido: 50.0
+
+  CHEF:
+    nombre: "Chef"
+    salario: 850.0
+    plazas: 10
+    descripcion: "Cocina comida con efectos especiales."
+    bonus-platillo-vendido: 20.0
+
+  MINERO:
+    nombre: "Minero"
+    salario: 650.0
+    plazas: 0
+    descripcion: "Extrae recursos del subsuelo."
+    requiere-licencia: EXPLOSIVOS
+    bonus-minerales: 5.0
+
+  CONSTRUCTOR:
+    nombre: "Constructor"
+    salario: 950.0
+    plazas: 0
+    descripcion: "Construye y vende propiedades a otros jugadores."
+    requiere-licencia: COMERCIO
+    bonus-propiedad-vendida: 1000.0
+
+  VETERINARIO:
+    nombre: "Veterinario"
+    salario: 1000.0
+    plazas: 6
+    descripcion: "Cuida animales de granja y mascotas."
+    bonus-animal-curado: 40.0
+
+  FUNCIONARIO:
+    nombre: "Funcionario"
+    salario: 900.0
+    plazas: 15
+    descripcion: "Trabaja en la alcaldía procesando trámites ciudadanos."
+
+  TRAFICANTE:
+    nombre: "Traficante"
+    salario: 3000.0
+    plazas: 0
+    ilegal: true
+    descripcion: "Cultiva, procesa y vende sustancias ilegales."
+
+  SICARIO:
+    nombre: "Sicario"
+    salario: 4000.0
+    plazas: 0
+    ilegal: true
+    descripcion: "Asesina objetivos por encargo."
+
+  HACKER:
+    nombre: "Hacker"
+    salario: 2500.0
+    plazas: 0
+    ilegal: true
+    descripcion: "Roba cuentas bancarias mediante hackeo."
+
+  DESEMPLEADO:
+    nombre: "Desempleado"
+    salario: 150.0
+    plazas: 0
+    descripcion: "Sin trabajo. Recibe subsidio básico de desempleo."
