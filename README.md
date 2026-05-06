@@ -1,0 +1,1 @@
+# plugin-de-modalidad-core-jp
