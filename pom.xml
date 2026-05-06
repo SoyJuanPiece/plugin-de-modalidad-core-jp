@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================================ -->
+    <!-- IDENTIFICACIÓN DEL PROYECTO                                  -->
+    <!-- ============================================================ -->
+    <groupId>com.soyjuanpiece</groupId>
+    <artifactId>plugin-de-modalidad-core-jp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>RoleplayCore</name>
+    <description>Motor de Roleplay Core para servidores de Minecraft - Simulación total de vida real</description>
+
+    <properties>
+        <!-- Java 21 obligatorio por el uso de Records y Pattern Matching -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Versiones de dependencias -->
+        <paper.version>1.20.4-R0.1-SNAPSHOT</paper.version>
+        <hikaricp.version>5.1.0</hikaricp.version>
+        <caffeine.version>3.1.8</caffeine.version>
+        <guava.version>32.1.3-jre</guava.version>
+        <mysql.version>8.2.0</mysql.version>
+        <slf4j.version>2.0.12</slf4j.version>
+    </properties>
+
+    <!-- ============================================================ -->
+    <!-- REPOSITORIOS                                                  -->
+    <!-- ============================================================ -->
+    <repositories>
+        <!-- Repositorio oficial de PaperMC -->
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <!-- ============================================================ -->
+    <!-- DEPENDENCIAS                                                  -->
+    <!-- ============================================================ -->
+    <dependencies>
+
+        <!-- API de PaperMC (servidor Minecraft moderno) -->
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>${paper.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- HikariCP: Pool de conexiones de alto rendimiento para base de datos -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikaricp.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Caffeine: Caché de alto rendimiento para perfiles de jugador -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Guava: Caché para datos temporales de sesión -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Conector MySQL/MariaDB -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- SLF4J para logging (usado internamente por HikariCP) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ============================================================ -->
+    <!-- CONFIGURACIÓN DE BUILD                                        -->
+    <!-- ============================================================ -->
+    <build>
+        <!-- Permite que plugin.yml use ${project.version} -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- Compilador Maven con Java 21 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.1</version>
+                <configuration>
+                    <release>21</release>
+                    <enablePreview>false</enablePreview>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin Shade: empaqueta todas las dependencias en un solo JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- Reubicación de paquetes para evitar conflictos con otros plugins -->
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.zaxxer.hikari</pattern>
+                                    <shadedPattern>com.soyjuanpiece.roleplaycore.libs.hikari</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.github.benmanes.caffeine</pattern>
+                                    <shadedPattern>com.soyjuanpiece.roleplaycore.libs.caffeine</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.google.common</pattern>
+                                    <shadedPattern>com.soyjuanpiece.roleplaycore.libs.guava</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

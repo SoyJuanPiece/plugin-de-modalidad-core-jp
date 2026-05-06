@@ -1,0 +1,61 @@
+# ============================================================
+# RoleplayCore - Configuración Principal
+# ============================================================
+# Plugin desarrollado por SoyJuanPiece
+# Motor de simulación de vida real para Minecraft
+
+# ============================================================
+# CONFIGURACIÓN DE BASE DE DATOS
+# ============================================================
+database:
+  host: "localhost"
+  port: 3306
+  name: "roleplay_db"
+  username: "root"
+  password: "tu_password_aqui"
+
+# ============================================================
+# CONFIGURACIÓN DE ECONOMÍA
+# ============================================================
+economy:
+  # Saldo inicial al crear un perfil nuevo
+  saldo-inicial: 500.0
+
+  # Porcentaje de comisión para lavar dinero sucio (25% = 0.25)
+  comision-lavado: 0.25
+
+  # Intervalo del ciclo Payday en minutos
+  intervalo-payday-minutos: 30
+
+# ============================================================
+# CONFIGURACIÓN DE LA CIUDAD
+# ============================================================
+town:
+  # Nombre de la ciudad principal gestionada por este plugin
+  nombre: "La Ciudad"
+
+  # Duración máxima de una elección en minutos
+  duracion-eleccion-minutos: 60
+
+# ============================================================
+# CONFIGURACIÓN DEL SISTEMA CRIMINAL
+# ============================================================
+crime:
+  # Duración de las evidencias forenses en segundos (3600 = 1 hora)
+  duracion-evidencia-segundos: 3600
+
+  # Radio del scanner policial en bloques
+  radio-scanner-bloques: 10.0
+
+  # Tiempo en minutos para reducir nivel Wanted por inactividad
+  tiempo-reduccion-wanted-minutos: 10
+
+# ============================================================
+# CONFIGURACIÓN DE HERENCIAS
+# ============================================================
+herencias:
+  # Días de inactividad para considerar un jugador "inactivo"
+  dias-inactividad: 30
+
+  # Porcentaje del valor de la subasta que va a los herederos (50%)
+  porcentaje-herederos: 0.50
