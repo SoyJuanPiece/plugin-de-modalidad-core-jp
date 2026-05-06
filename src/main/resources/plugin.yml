@@ -1,0 +1,27 @@
+name: RoleplayCore
+version: '${project.version}'
+main: com.soyjuanpiece.roleplaycore.RoleplayCore
+api-version: '1.20'
+description: Motor de Roleplay Core para servidores de Minecraft - Simulación total de vida real
+author: SoyJuanPiece
+website: https://github.com/SoyJuanPiece/plugin-de-modalidad-core-jp
+
+commands:
+  roleplay:
+    description: Comando principal del sistema RoleplayCore
+    usage: /<command> [subcomando]
+    permission: roleplaycore.admin
+
+permissions:
+  roleplaycore.admin:
+    description: Acceso completo a comandos de administración
+    default: op
+  roleplaycore.police:
+    description: Acceso a funciones policiales (Scanner forense, arrestos)
+    default: false
+  roleplaycore.judge:
+    description: Acceso al sistema judicial (dictar sentencias)
+    default: false
+  roleplaycore.mayor:
+    description: Acceso a funciones del Alcalde (cambiar CityFlags)
+    default: false
